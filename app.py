@@ -1,0 +1,1 @@
+from africrafts import create_app
