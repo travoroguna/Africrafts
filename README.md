@@ -7,7 +7,14 @@ python3 -m pip install -r requirements.txt
 
 ### Database
 
-set the database uri in `instance/config.toml`
+for local development set the database uri in `instance/configdev.toml`
+
+config file can be passed to a run command as
+
+```bash
+gunicorn "app:create_app(config='config_deploy.toml')"
+```
+
 
 initialize the database
 ```bash
