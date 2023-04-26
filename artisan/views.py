@@ -13,7 +13,10 @@ def home(request):
 def dashboard(request):
     if not request.user.is_artisan:
         return redirect('login')
-    return render(request, 'artisan_dashboard.html')
+    context = {
+        'segment': 'dashboard'
+    }
+    return render(request, 'artisan_dashboard.html', context)
 
 
 def signup(request):
@@ -78,4 +81,6 @@ def login(request):
         return redirect('shop')
     elif user.user_type.is_artisan:
         return redirect('artisan:dashboard')
-    
+    else:
+        # TODO: tell user to login as artisan or user or use the admin panel
+        return redirect('home')
