@@ -21,6 +21,12 @@ pip install -r requirements.txt
 
 ## Usage
 
+Create migrations
+
+```bash
+python manage.py makemigrations
+```
+
 Run migrations
 
 ```bash
