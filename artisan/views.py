@@ -9,4 +9,7 @@ def home(request):
 
 @login_required()
 def dashboard(request):
-    return render(request, 'artisan_dashboard.html')
+    context = {
+        'segment': 'dashboard'
+    }
+    return render(request, 'artisan_dashboard.html', context)
