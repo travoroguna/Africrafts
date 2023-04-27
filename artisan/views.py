@@ -9,7 +9,7 @@ def home(request):
     return render(request, 'artisan_index.html')
 
 
-@login_required()
+@login_required(login_url='/artisan/login', redirect_field_name=None)
 def dashboard(request):
     if not request.user.is_artisan:
         return redirect('login')
@@ -63,24 +63,3 @@ def signup(request):
     return redirect('artisan:dashboard')
     
 
-def login(request):
-    if request.method != 'POST':
-        return render(request, 'login.html')
-    
-    email = request.POST.get('email')
-    password = request.POST.get('password')
-
-    user = User.objects.get(email=email)
-
-    print(user)
-
-    if not user.check_password(password):
-        return redirect('login')
-
-    if user.user_type.is_user:
-        return redirect('shop')
-    elif user.user_type.is_artisan:
-        return redirect('artisan:dashboard')
-    else:
-        # TODO: tell user to login as artisan or user or use the admin panel
-        return redirect('home')

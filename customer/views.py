@@ -10,10 +10,15 @@ def shop(request):
 
 def signup(request):
     if request.method != 'POST':
-        return render(request, 'signup.html')
+        return render(request, 'customer_signup.html')
     
+    # TODO: Add validation for email and password
     email = request.POST.get('email')
     password = request.POST.get('password') 
+    repeat_password = request.POST.get('repeat_password')
+
+    if password != repeat_password:
+        return redirect('signup', {'error': 'Passwords do not match'})
 
 
     user = User.objects.create_user(email=email)
@@ -26,21 +31,3 @@ def signup(request):
 
     return redirect('shop')
     
-
-def login(request):
-    if request.method != 'POST':
-        return render(request, 'login.html')
-    
-    email = request.POST.get('email')
-    password = request.POST.get('password')
-
-    user = User.objects.get(email=email)
-
-    if not user.check_password(password):
-        return redirect('login')
-
-    if user.user_type.is_user:
-        return redirect('shop')
-    elif user.user_type.is_artisan:
-        return redirect('artisan:dashboard')
-        
