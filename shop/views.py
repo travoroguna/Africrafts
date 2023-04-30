@@ -4,4 +4,4 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def shop(request):
-    return render(request, 'customer_index.html')
+    return render(request, 'shop_index.html')
