@@ -10,7 +10,6 @@ class Artisan(models.Model):
 
 
 class Product(models.Model):
-    artisan = models.ForeignKey(Artisan, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)

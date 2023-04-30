@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from shop.models import Customer
 from artisan.models import Product
+
 
 # Create your views here.
 
@@ -14,3 +15,26 @@ def dashboard(request):
         'products': Product.objects.all()
     }
     return render(request, 'artisan_dashboard.html', context)
+
+
+@login_required()
+def products(request):
+    context = {
+        'segment': 'products',
+        'products': Product.objects.all()
+    }
+    return render(request, 'products/index.html', context)
+
+
+@login_required()
+def create_product(request):
+    context = {
+        'segment': 'products',
+    }
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        Product.objects.create(name=name, description=description, price=price)
+        return redirect('/artisan/products', context)
+    return render(request, 'products/create.html', context)
