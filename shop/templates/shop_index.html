@@ -98,7 +98,7 @@
             {% for product in products %}
             <div class="col">
                 <div class="item">
-                    <img width="250px" height="210px" src="{{ product.image.url }}" class="mb-2" alt="{{ product.name }}">
+                    <img width="250px" height="210px" src="{{ product.image.url }}" class="mb-2 rounded" alt="{{ product.name }}">
                     <h6 class="h6 text-success">{{ product.name }}</h6>
                     <p class="p">{{ product.description }}</p>
                     <h5 style="color: #AD0214"><sup><small>USD</small></sup>{{ product.price }}</h5>
