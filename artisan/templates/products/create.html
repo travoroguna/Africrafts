@@ -21,7 +21,7 @@
             <div class="col p-4">
                 <h1 class="h1 fw-bold text-uppercase">Add NEW Product</h1>
                 <h6 class="h6">Add some information for the product you want to create</h6>
-                <form method="post" style="margin-top: 50px">
+                <form enctype="multipart/form-data" method="post" style="margin-top: 50px">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
@@ -34,6 +34,10 @@
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="number" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" id="image" name="image">
                     </div>
                     <div class="float-end">
                         <a href="{% url 'artisan-products' %}" class="btn text-uppercase text-white" style="background-color: #581906">Cancel</a>

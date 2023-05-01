@@ -35,6 +35,7 @@ def create_product(request):
         name = request.POST.get('name')
         description = request.POST.get('description')
         price = request.POST.get('price')
-        Product.objects.create(name=name, description=description, price=price)
+        image = request.FILES.get('image')
+        Product.objects.create(name=name, description=description, price=price, image=image)
         return redirect('/artisan/products', context)
     return render(request, 'products/create.html', context)
