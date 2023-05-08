@@ -71,5 +71,3 @@ class user_type(models.Model):
             return f"{User.get_email(self.user)} - is_user"
         else:
             return f"{User.get_email(self.user)} - is_artisan"
-        
-

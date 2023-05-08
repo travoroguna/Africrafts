@@ -3,5 +3,6 @@ db.sqlite3
 env
 venv
 __pycache__
-migrations
+/migrations/
 static/uploads
+poetry.lock

@@ -3,14 +3,10 @@ from django.contrib.auth.decorators import login_required
 from customer.models import User, user_type
 
 
-# Create your views here.
-def shop(request):
-    return render(request, 'customer_index.html')
-
 
 def signup(request):
     if request.method != 'POST':
-        return render(request, 'customer_signup.html')
+        return render(request, 'signup_customer-tmp.html')
     
     # TODO: Add validation for email and password
     email = request.POST.get('email')
