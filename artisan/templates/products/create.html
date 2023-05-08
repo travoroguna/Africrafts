@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    {% include 'includes/simple-head.html' %}
+    <style>
+        body {
+            background-color: #FAEFE6;
+        }
+    </style>
+</head>
+
+<main class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <img style="display: block; height: 100vh; width: 50vw; margin: 0 auto;"
+                     src="{% static 'img/product_page_image.png' %}" alt="Product page image">
+            </div>
+            <div class="col p-4">
+                <h1 class="h1 fw-bold text-uppercase">Add NEW Product</h1>
+                <h6 class="h6">Add some information for the product you want to create</h6>
+                <form enctype="multipart/form-data" method="post" style="margin-top: 50px">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productName" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Product Description</label>
+                        <input type="text" class="form-control" id="productDescription" name="description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                    <div class="float-end">
+                        <a href="{% url 'artisan-products' %}" class="btn text-uppercase text-white" style="background-color: #581906">Cancel</a>
+                        <button type="submit" class="btn text-uppercase text-white" style="background-color: #E35C02">Publish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include 'includes/scripts.html' %}
+<body>

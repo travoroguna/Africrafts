@@ -67,13 +67,13 @@
         <div class="collapse navbar-collapse text-uppercase" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'landing' %}">Home</a>
+                    <a class="nav-link" href="{% url 'landing' %}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Why Africrafts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'shop' %}">Shop</a>
+                    <a class="nav-link active" href="{% url 'shop' %}">Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Artisans</a>
@@ -92,26 +92,28 @@
     </div>
 </nav>
 
-<div class="jumbotron" style="background-color: #E35C02">
+<main class="content">
     <div class="container">
-        <div class="row">
-            <div class="col" style="padding-top: 100px">
-                <div class="text-light">
-                    <h1 class="h1">From Artisans, to You: Shop Unique, Handmade Crafts</h1>
-                    <h6 class="h6 mb-4"> Bringing Africa to your doorstep,  your #1 online shop for quality authentic African Souvenir .</h6>
-                    <div class="flex">
-                        <a href="{% url 'shop' %}" class="btn btn-lg btn-light fw-bold">SHOP NOW</a>
-                        <a href="{% url 'artisan-home' %}" class="btn btn-lg fw-bold ms-4" style="background-color: #FFC404">START SELLING</a>
+        <div class="row" style="padding-top: 100px">
+            {% for product in products %}
+            <div class="col">
+                <div class="item">
+                    <img width="250px" height="210px" src="{{ product.image.url }}" class="mb-2 rounded" alt="{{ product.name }}">
+                    <h6 class="h6 text-success">{{ product.name }}</h6>
+                    <p class="p">{{ product.description }}</p>
+                    <h5 style="color: #AD0214"><sup><small>USD</small></sup>{{ product.price }}</h5>
+                    <div>
+                        <i class="bi bi-dash-square-fill"></i>
+                        <input style="width: 50px" class="" type="number" min="1" value="1">
+                        <i class="bi bi-plus-square-fill"></i>
+                        <button class="btn btn-outline-success btn-sm mb-1 ms-2">ADD TO CART</button>
                     </div>
-                    <p class="mt-2">*We deliver worldwide</p>
                 </div>
             </div>
-            <div class="col d-none d-md-block">
-                <img class="img-fluid" src="{% static 'img/img1.png' %}" alt="Image 1">
-            </div>
+            {% endfor %}
         </div>
     </div>
-</div>
+</main>
 
 {% include 'includes/scripts.html' %}
 <body>

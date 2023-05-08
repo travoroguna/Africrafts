@@ -6,10 +6,10 @@
       <div class="d-flex align-items-center">
         <div class="avatar-lg me-4">
           <img src="{% static 'assets/img/team/profile-picture-3.jpg' %}" class="card-img-top rounded-circle border-white"
-            alt="Bonnie Green">
+            alt="{{ user.first_name }}">
         </div>
         <div class="d-block">
-          <h2 class="h5 mb-3">Hi, Jane</h2>
+          <h2 class="h5 mb-3">Hi, {{ user.first_name }}</h2>
           <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm d-inline-flex align-items-center">
             <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
@@ -46,30 +46,22 @@
       </li>
 
       <li class="nav-item {% if 'dashboard' in segment %}active{% endif %}">
-        <a href="/" class="nav-link">
+        <a href="{% url 'artisan-dashboard' %}" class="nav-link">
           <span class="sidebar-icon">
             <i class="bi bi-house"></i>
           </span>
           <span class="sidebar-text">Dashboard</span>
         </a>
       </li>
-    <li class="nav-item {% if 'products   ' in segment %}active{% endif %}">
-        <a href="/" class="nav-link">
+    <li class="nav-item {% if 'products' in segment %}active{% endif %}">
+        <a href="{% url 'artisan-products' %}" class="nav-link">
           <span class="sidebar-icon">
             <i class="bi bi-cart"></i>
           </span>
           <span class="sidebar-text">Products</span>
         </a>
       </li>
-     <li class="nav-item {% if 'customers   ' in segment %}active{% endif %}">
-        <a href="/" class="nav-link">
-          <span class="sidebar-icon">
-            <i class="bi bi-people"></i>
-          </span>
-          <span class="sidebar-text">Customers</span>
-        </a>
-      </li>
-    <li class="nav-item {% if 'orders   ' in segment %}active{% endif %}">
+    <li class="nav-item {% if 'orders' in segment %}active{% endif %}">
         <a href="/" class="nav-link">
           <span class="sidebar-icon">
             <i class="bi bi-database"></i>

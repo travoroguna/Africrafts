@@ -1,12 +1,10 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, redirect
 from django.contrib.auth.decorators import login_required
-from customer.models import User, user_type
-from artisan.models import Artisan
+from shop.models import Customer
+from artisan.models import Product
 
 
 # Create your views here.
-def home(request):
-    return render(request, 'artisan_index.html')
 
 
 @login_required(login_url='/artisan/login', redirect_field_name=None)
@@ -14,9 +12,35 @@ def dashboard(request):
     if not request.user.is_artisan:
         return redirect('login')
     context = {
-        'segment': 'dashboard'
+        'segment': 'dashboard',
+        'customers': Customer.objects.all(),
+        'products': Product.objects.all()
     }
     return render(request, 'artisan_dashboard.html', context)
+
+
+@login_required()
+def products(request):
+    context = {
+        'segment': 'products',
+        'products': Product.objects.all()
+    }
+    return render(request, 'products/index.html', context)
+
+
+@login_required()
+def create_product(request):
+    context = {
+        'segment': 'products',
+    }
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        image = request.FILES.get('image')
+        Product.objects.create(name=name, description=description, price=price, image=image)
+        return redirect('/artisan/products', context)
+    return render(request, 'products/create.html', context)
 
 
 def signup(request):
