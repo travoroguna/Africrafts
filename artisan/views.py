@@ -26,7 +26,7 @@ def dashboard(request):
 def products(request):
     context = {
         'segment': 'products',
-        'products': Product.objects.all()
+        'products': Product.objects.filter(user=Artisan.objects.get(user=request.user)).all()
     }
     return render(request, 'products/index.html', context)
 
