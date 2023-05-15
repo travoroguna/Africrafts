@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from shop.models import Customer
+# from shop.models import Customer
 from artisan.models import Product, Artisan
 from customer.models import User, user_type
 from .forms import LoginForm
@@ -16,7 +16,7 @@ def dashboard(request):
         return redirect('login')
     context = {
         'segment': 'dashboard',
-        'customers': Customer.objects.all(),
+        'customers': [],
         'products': Product.objects.all()
     }
     return render(request, 'artisan_dashboard.html', context)
