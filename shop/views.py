@@ -109,3 +109,15 @@ def store_cart(request):
     except ObjectDoesNotExist:
         # messages.error(request, "You do not have an active order")
         return redirect("store_cart")
+
+@login_required
+def checkout(request):
+    try:
+        order = Order.objects.get(customer=request.user, ordered=False)
+        context = {
+            'object': order
+        }
+        return render(request, 'shop_checkout.html', context)
+    except ObjectDoesNotExist:
+        # messages.error(request, "You do not have an active order")
+        return redirect("store_checkout")

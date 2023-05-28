@@ -1,4 +1,5 @@
 {% extends 'shop_layouts/_base.html' %}
+
 {% load static %}
 
 {% block content  %}
@@ -9,14 +10,70 @@
 
 <head>
     {% include 'includes/simple-head.html' %}
+    <link rel="stylesheet" href="/static/css/style.css">
     <style>
         body {
             background-color: #FAEFE6;
-            overflow-x: hidden;
+            /* overflow: hidden; */
             /* overflow-y: hidden; */
+            overflow-x: hidden;
+            position: absolute;
         }
+        .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
+	        margin-top: 10px;
+        }
+
+        .row{
+            margin-top: 100px;
+        }
+
+        .btn{
+            border-radius: 0;
+        }
+
+        .row-image{
+            width: 100px;
+        }
+
+        .box-element{
+            box-shadow:hsl(0, 56%, 89%) 0 0 16px;
+            background-color: rgb(250, 180, 122)FE6;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .bg-dark{
+            background-color: #4f868c!important;
+        }
+
+        .form-field{
+            width:250px;
+            display: inline-block;
+            padding: 5px;
+        }
+
+        .cart-row{
+            display: flex;
+            align-items: flex-stretch;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ececec;
+
+        }
+
+        .quantity{
+            display: inline-block;
+            font-weight: 700;
+            padding-right:10px;
+            
+
+        }
+
+        .hidden{
+            display: none!important;
+        }
+
     </style>
-</head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-transparent" style="margin-top: 40px">
     <div class="container">
@@ -45,7 +102,7 @@
     <div class="container">
         <a class="navbar-brand" href="{% url 'landing' %}" style="position: absolute">
             <svg width="204" height="219" viewBox="0 0 204 219" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.75" width="202.778" height="219" fill="white"/>
+                <rect x="0.75" width="202.778" height="219" fill="white"></rect>
                 <path d="M96.8718 99.3561H58.5381C57.0188 99.3561 55.788 98.1414 55.788 96.6461V66.7347C55.788 65.2376 57.0188 64.0229 58.5381 64.0229H85.684C87.205 64.0229 88.4341 65.2376 88.4341 66.7347V85.9836C88.4341 87.4807 87.205 88.6936 85.684 88.6936H69.2231C67.7021 88.6936 66.4712 87.4807 66.4712 85.9836V76.2251C66.4712 74.728 67.7021 73.5115 69.2231 73.5115C70.7441 73.5115 71.9732 74.728 71.9732 76.2251V83.2718H82.9339V69.4447H61.29V93.9343H94.1199V58.4218H58.5615C57.0423 58.4218 55.8114 57.207 55.8114 55.71C55.8114 54.2111 57.0423 53 58.5615 53H96.8718C98.3893 53 99.6201 54.2111 99.6201 55.71V96.6461C99.6201 98.1414 98.3893 99.3561 96.8718 99.3561Z"
                       fill="#440310"/>
                 <path d="M105.932 93.8889V56.1157C105.932 54.6203 107.161 53.4074 108.682 53.4074H139.038C140.555 53.4074 141.788 54.6203 141.788 56.1157V82.8659C141.788 84.3666 140.555 85.5777 139.038 85.5777H119.503C117.983 85.5777 116.751 84.3666 116.751 82.8659V66.6431C116.751 65.1478 117.983 63.9349 119.503 63.9349H129.407C130.925 63.9349 132.161 65.1478 132.161 66.6431C132.161 68.1438 130.925 69.3567 129.407 69.3567H122.253V80.1559H136.286V58.8292H111.436V91.1824H147.472V56.1423C147.472 54.6434 148.703 53.4287 150.224 53.4287C151.741 53.4287 152.974 54.6434 152.974 56.1423V93.8889C152.974 95.3895 151.741 96.6007 150.224 96.6007H108.682C107.161 96.6007 105.932 95.3895 105.932 93.8889Z"
@@ -101,31 +158,74 @@
         </div>
     </div>
 </nav>
+</head>
 
-<main class="content">
-    <div class="container">
-        <div class="row" style="padding-top: 100px">
-            {% for product in products %}
-            <div class="col">
-                <div class="item">
-                    <img width="250px" height="210px" src="{{ product.image.url }}" class="mb-2 rounded" alt="{{ product.name }}">
-                    <h6 class="h6 text-success">{{ product.name }}</h6>
-                    <p class="p">{{ product.description }}</p>
-                    <h5 style="color: #AD0214"><sup><small>USD</small></sup>{{ product.price }}</h5>
-                    <div>
-                        {% comment %} <i class="bi bi-dash-square-fill"></i>
-                        <input style="width: 50px" class="" type="number" min="1" value="1">
-                        <i class="bi bi-plus-square-fill"></i> {% endcomment %}
-                        <button class="btn btn-outline-success btn-sm mb-1 ms-2"><a href="{{ product.get_add_to_cart_url }}" >ADD TO CART</a></button>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</main>
+<!-- create checkout html page frontend -->
 
-{% include 'includes/scripts.html' %}
 <body>
+    
+    <div  class="row">
+		<div class="col-lg-6">
+			<div class="box-element" id="form-wrapper">
+				<form id="form">
+					<div id="user-info">
+						<div class="form-field">
+							<input required class="form-control" type="text" name="name" placeholder="Name..">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="email" name="email" placeholder="Email..">
+						</div>
+					</div>
+					
+					<div id="shipping-info">
+						<hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" name="address" placeholder="Address..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="city" placeholder="City..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" placeholder="State..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="country" placeholder="Zip code..">
+						</div>
+					</div>
 
+					<hr>
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+				</form>
+			</div>
+
+			
+		</div>
+
+		<div class="col-lg-6">
+			<div class="box-element">
+				<a  class="btn btn-outline-dark" href="{% url 'store_cart' %}">&#x2190; Back to Cart</a>
+				<hr>
+				<h3>Order Summary</h3>
+				<hr>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{order_item.product.image.url}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+				</div>
+				{% endfor %}
+				<h5>Items:   {{object.get_total_quantity}}</h5>
+				<h5>Total:   ${{object.get_total}}</h5>
+			</div>
+		</div>
+	</div>
+
+    {% include 'includes/scripts.html' %}
+</body>
 {% endblock %}

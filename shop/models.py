@@ -40,21 +40,28 @@ class Order(models.Model):
     def __str__(self):
         return self.customer.username
 
+    @property
     def get_total(self):
         total = 0
         for order_product in self.products.all():
             total += order_product.get_total_item_price()
         return total
+
+    @property
+    def get_total_quantity(self):
+        total = 0
+        for order_product in self.products.all():
+            total += order_product.quantity
+        return total
     
 class CheckoutAddress(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    note = models.TextField()
+    ordered = models.CharField(max_length=200, null=False, blank=True)
+    email = models.CharField(max_length=100, null=False, blank=True)
+    address = models.CharField(max_length=200, null=False, blank=True)
+    city = models.CharField(max_length=200, null=False, blank=True)
+    state = models.CharField(max_length=200, null=False, blank=True)
+    zipcode = models.CharField(max_length=200, null=False, blank=True)    
 
     def __str__(self):
         return self.customer.username
