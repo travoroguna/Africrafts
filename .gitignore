@@ -6,3 +6,6 @@ __pycache__
 /migrations/
 static/uploads
 poetry.lock
+.hintrc
+migrations
+.vscode
