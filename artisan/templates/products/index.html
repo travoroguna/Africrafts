@@ -35,7 +35,8 @@
                         <td>{{ product.description }}</td>
                         <td><sup><small>USD</small></sup>{{ product.price }}</td>
                         <td>
-                            <a href="{% url 'edit-product' product_id=product.id %}">Edit</a>
+                            <a href="{% url 'edit-product' product_id=product.id %}">Edit</a> |
+                            <a class="text-danger" onclick="deleteProduct({{ product.id }})">Delete</a>
                         </td>
                     </tr>
                     {% empty %}
