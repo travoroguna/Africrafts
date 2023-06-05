@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load widget_tweaks %}
 
 <head>
     {% include 'includes/simple-head.html' %}
@@ -19,29 +20,54 @@
                      src="{% static 'img/product_page_image.png' %}" alt="Product page image">
             </div>
             <div class="col p-4">
-                <h1 class="h1 fw-bold text-uppercase">Add NEW Product</h1>
+                <h1 class="h1 fw-bold text-uppercase londrina">Product</h1>
                 <h6 class="h6">Add some information for the product you want to create</h6>
                 <form enctype="multipart/form-data" method="post" style="margin-top: 50px">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="productName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="productName" name="name">
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="text-danger mb-3">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.errors %}
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }} {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <div class="mb-4">
+                        <label for="name">{{ form.name.label }}</label>
+                        <div class="input-group">
+                            {{ form.name|add_class:"form-control" }}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="productDescription" class="form-label">Product Description</label>
-                        <input type="text" class="form-control" id="productDescription" name="description">
+                    <div class="mb-4">
+                        <label for="description">{{ form.description.label }}</label>
+                        <div class="input-group">
+                            {{ form.description|add_class:"form-control" }}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" name="price">
+                    <div class="mb-4">
+                        <label for="price">{{ form.price.label }}</label>
+                        <div class="input-group">
+                            {{ form.price|add_class:"form-control" }}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" class="form-control" id="image" name="image">
+                    <div class="mb-4">
+                        <label for="image">{{ form.image.label }}</label>
+                        <div class="input-group">
+                            {{ form.image|add_class:"form-control" }}
+                        </div>
                     </div>
                     <div class="float-end">
-                        <a href="{% url 'artisan-products' %}" class="btn text-uppercase text-white" style="background-color: #581906">Cancel</a>
-                        <button type="submit" class="btn text-uppercase text-white" style="background-color: #E35C02">Publish</button>
+                        <a href="{% url 'artisan-products' %}" class="btn text-uppercase text-white"
+                           style="background-color: #581906">Cancel</a>
+                        <button type="submit" class="btn text-uppercase text-white" style="background-color: #E35C02">
+                            Publish
+                        </button>
                     </div>
                 </form>
             </div>
