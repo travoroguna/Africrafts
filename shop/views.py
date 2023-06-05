@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from artisan.models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
-from .models import Category,OrderProduct,Order,CheckoutAddress
+from .models import Category,OrderProduct,Order, ShippingAddress
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from artisan.models import Product
@@ -91,10 +91,10 @@ def remove_from_cart(request, slug):
             return redirect("store_cart")
         else:
             # messages.info(request, "This item was not in your cart")
-            return redirect('store_cart', slug=slug)
+            return redirect('store_cart')
     else:
         # messages.info(request, "You do not have an active order")
-        return redirect("store_cart", slug=slug)
+        return redirect("store_cart")
 
 
 @login_required
@@ -110,14 +110,45 @@ def store_cart(request):
         # messages.error(request, "You do not have an active order")
         return redirect("store_cart")
 
+
+@login_required
+def order_success(request):
+    return render(request, 'order_success.html')
+
 @login_required
 def checkout(request):
-    try:
+    if request.method == "POST":
+        # checkout logic
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip_code')
+
+        print(address, city, state, zip_code)
+
+        checkout_address = ShippingAddress(
+            address=address,
+            city=city,
+            state=state,
+            zip_code=zip_code
+        )
+
+        checkout_address.save()
         order = Order.objects.get(customer=request.user, ordered=False)
-        context = {
-            'object': order
-        }
-        return render(request, 'shop_checkout.html', context)
-    except ObjectDoesNotExist:
-        # messages.error(request, "You do not have an active order")
-        return redirect("store_checkout")
+        order.shipping_address = checkout_address
+        order.ordered = True
+        order.save()
+
+        return render(request, 'order_success.html')
+
+
+    else:
+        try:
+            order = Order.objects.get(customer=request.user, ordered=False)
+            context = {
+                'object': order
+            }
+            return render(request, 'shop_checkout.html', context)
+        except ObjectDoesNotExist:
+            # messages.error(request, "You do not have an active order")
+            return redirect("shop")

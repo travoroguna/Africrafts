@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from customer.models import User, user_type
+from .models import Order, ShippingAddress, OrderProduct
 
 
 class UserAdmin(BaseUserAdmin):
@@ -35,3 +36,6 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(user_type)
+admin.site.register(Order)
+admin.site.register(ShippingAddress)
+admin.site.register(OrderProduct)
