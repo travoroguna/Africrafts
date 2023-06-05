@@ -1,79 +1,18 @@
-{% extends 'shop_layouts/_base.html' %}
-
 {% load static %}
+{% block content %}
 
-{% block content  %}
+    <!DOCTYPE html>
+    <html lang="en">
+    {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-
-<head>
-    {% include 'includes/simple-head.html' %}
-    <link rel="stylesheet" href="/static/css/style.css">
-    <style>
-        body {
-            background-color: #FAEFE6;
-            /* overflow: hidden; */
-            /* overflow-y: hidden; */
-            overflow-x: hidden;
-            position: absolute;
-        }
-        .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
-	        margin-top: 10px;
-        }
-
-        .row{
-            margin-top: 100px;
-        }
-
-        .btn{
-            border-radius: 0;
-        }
-
-        .row-image{
-            width: 100px;
-        }
-
-        .box-element{
-            box-shadow:hsl(0, 56%, 89%) 0 0 16px;
-            background-color: rgb(250, 180, 122)FE6;
-            border-radius: 4px;
-            padding: 10px;
-        }
-
-        .bg-dark{
-            background-color: #4f868c!important;
-        }
-
-        .form-field{
-            width:250px;
-            display: inline-block;
-            padding: 5px;
-        }
-
-        .cart-row{
-            display: flex;
-            align-items: flex-stretch;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ececec;
-
-        }
-
-        .quantity{
-            display: inline-block;
-            font-weight: 700;
-            padding-right:10px;
-            
-
-        }
-
-        .hidden{
-            display: none!important;
-        }
-
-    </style>
+    <head>
+        {% include 'includes/simple-head.html' %}
+        <style>
+            body {
+                background-color: #FAEFE6;
+            }
+        </style>
+    </head>
 
 {% include 'includes/navinfo.html' %}
 
@@ -119,34 +58,24 @@
 						</div> -->
 					</div>
 
-					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
-				</form>
-			</div>
-
-			
-		</div>
-
-		<div class="col-lg-6">
-			<div class="box-element">
-				<a  class="btn btn-outline-dark" href="{% url 'store_cart' %}">&#x2190; Back to Cart</a>
-				<hr>
-				<h3>Order Summary</h3>
-				<hr>
-				{% for item in items %}
-				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src="{{order_item.product.image.url}}"></div>
-					<div style="flex:2"><p>{{item.product.name}}</p></div>
-					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
-					<div style="flex:1"><p>x{{item.quantity}}</p></div>
-				</div>
-				{% endfor %}
-				<h5>Items:   {{object.get_total_quantity}}</h5>
-				<h5>Total:   ${{object.get_total}}</h5>
-			</div>
-		</div>
-	</div>
+                            <hr>
+                            <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-outline-dark" href="{% url 'store_cart' %}">&#x2190; Back to Cart</a>
+                        <hr>
+                        <h3>Order Summary</h3>
+                        <hr>
+                        <h5>Items: {{ object.get_total_quantity }}</h5>
+                        <h5>Total: ${{ object.get_total }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     {% include 'includes/scripts.html' %}
-</body>
+    <body>
+
 {% endblock %}

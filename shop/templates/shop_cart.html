@@ -1,11 +1,9 @@
-{% extends 'shop_layouts/_base.html' %}
-
 {% load static %}
+{% block content %}
 
-{% block content  %}
-
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
+    {% load static %}
 
 <head>
     {% include 'includes/simple-head.html' %}
@@ -44,13 +42,13 @@
                     <div class="shoping__cart__table">
                         <table class="table table-borderless table-hover">
                             <thead>
-                                <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th class="shoping__product">Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
                             </thead>
                             {% for order_item in object.products.all %} 
                             <tbody>
@@ -74,36 +72,19 @@
                                     </tr>
                             </tbody>
                             {% endfor %}
-                            
                         </table>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__btns">
-                        <a href="{% url 'shop' %}" class="primary-btn cart-btn btn btn-secondary">CONTINUE SHOPPING</a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="shoping__continue">
-                    </div>
-                </div>
-                <div class="col-lg-12 mt-5">
-                    <div class="shoping__checkout">
-                            <h5 class="fs-2">Cart Total</h5>
-                            <ul>
-                                <li>Username <span>{{ object.customer.username }}</span></li>
-                                <li>Total <span>${{ object.get_total }}</span></li>
-                            </ul>
-                            <a href="{% url 'checkout' %}" class="primary-btn btn btn-success">PROCEED TO CHECKOUT</a>
+                    <div class="col">
+                        <h5>Cart Total</h5>
+                        <h4>Total: ${{ object.get_total }}</h4>
+                        <a href="{% url 'shop' %}" class="btn btn-sm btn-outline-success">Continue Shopping</a>
+                        <a href="{% url 'checkout' %}" class="btn btn-sm btn-success">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Shoping Cart Section End -->
+    </main>
     {% include 'includes/scripts.html' %}
-</body>
+    <body>
 
 {% endblock %}

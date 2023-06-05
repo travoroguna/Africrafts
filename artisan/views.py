@@ -1,10 +1,11 @@
-from django.shortcuts import redirect, render, redirect
+from django.shortcuts import redirect, render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 # from shop.models import Customer
 from artisan.models import Product, Artisan
 from customer.models import User, user_type
-from .forms import LoginForm
+from .forms import LoginForm, ProductForm
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -32,33 +33,49 @@ def products(request):
 
 
 @login_required()
-def create_product(request):
-    context = {
-        'segment': 'products',
-    }
+def create_product(request, product_id=None):
+    if product_id:
+        # Edit an existing product
+        product = get_object_or_404(Product, id=product_id)
+        form = ProductForm(request.POST or None, request.FILES or None, instance=product)
+    else:
+        # Create a new product
+        form = ProductForm(request.POST or None, request.FILES or None)
+
     if request.method == 'POST':
-        user = Artisan.objects.get(user=request.user)
+        context = {'segment': 'products'}
+        if form.is_valid():
+            if product_id is None:
+                product = form.save(commit=False)
+                product.user = Artisan.objects.get(user=request.user)
+                product.save()
+            else:
+                form.save()
+            return redirect('/artisan/products', context)
+        else:
+            context = {'form': form}
+            return render(request, 'products/create.html', context)
 
-
-        name = request.POST.get('name')
-        description = request.POST.get('description')
-        price = request.POST.get('price')
-        image = request.FILES.get('image')
-        Product.objects.create(user=user, name=name, description=description, price=price, image=image)
-        return redirect('/artisan/products', context)
+    context = {'form': form, 'segment': 'products'}
     return render(request, 'products/create.html', context)
+
+
+@login_required()
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    product.delete()
+    return JsonResponse({'message': 'Product deleted successfully'})
 
 
 def signup(request):
     if request.method != 'POST':
         return render(request, 'signup-tmp.html')
-    
+
     email = request.POST.get('email')
-    password = request.POST.get('password') 
+    password = request.POST.get('password')
 
     if User.objects.filter(email=email).exists():
         return render(request, 'signup-tmp.html', {"error": "user with the email already exists"})
-
 
     artisan = User.objects.create_artisan(email=email, password=password)
     artisan.save()
@@ -72,19 +89,18 @@ def signup(request):
 
     artisan_obj.save()
     return redirect('artisan-dashboard')
-    
 
 
 def login(request):
     if request.method != 'POST':
         return render(request, 'login_tmp.html')
-    
+
     form = LoginForm(request.POST)
     if not form.is_valid():
         return render(request, 'login_tmp.html', {'form': form})
-    
+
     email = request.POST.get('email')
-    password = request.POST.get('password') 
+    password = request.POST.get('password')
 
     user = authenticate(request, email=email, password=password)
 
@@ -94,5 +110,5 @@ def login(request):
             return redirect('artisan-dashboard')
         else:
             return redirect('shop')
-        
+
     return render(request, 'login_tmp.html', {'form': form, 'error': 'Invalid credentials'})
