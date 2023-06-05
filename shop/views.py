@@ -138,8 +138,11 @@ def checkout(request):
         order.shipping_address = checkout_address
         order.ordered = True
         order.save()
+        context = {
+            'order': order
+        }
 
-        return render(request, 'order_success.html')
+        return render(request, 'order_success.html', context)
 
 
     else:
