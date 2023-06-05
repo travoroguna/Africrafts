@@ -1,0 +1,46 @@
+{% extends 'shop_layouts/_base.html' %}
+{% load static %}
+
+{% block content  %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <html>
+        <head>
+            <title>Thank You</title>
+            <link rel="stylesheet" type="text/css" href="{% static 'css/order_success.css' %}">
+        </head>
+        <body>
+            <div class="container">
+                <h1>Thank You for Your order!</h1>
+
+                    {% comment %} <h2>Here's your order summary:</h2>
+
+                {% for order_item in order.products.all %} 
+                <tbody>
+                <tr>
+                    <td class="shoping__cart__item">
+                        <img src="{{ order_item.product.image.url }}" alt=""  width="90px" height="90px" />
+                        <h5>{{ order_item.product.name }}</h5>
+                    </td>
+                    <td class="shoping__cart__total">
+                        ${{ order_item.product.price }}
+                    </td>
+                    <td class="shoping__cart__total">
+                        {{ order_item.quantity }}
+                    </td>
+                    <td class="shoping__cart__total">
+                        ${{ order_item.get_total_item_price }}
+                    </td>
+                </tr>
+                </tbody> {% endcomment %}
+                {% comment %} {% endfor %} {% endcomment %}
+
+                <p class="shipping-text">Shipping it right away!</p>
+                
+                <a href="{% url 'shop' %}" class="btn btn-sm btn-success">Continue Shopping</a>
+                
+            {% include 'includes/scripts.html' %}
+         </body>
+
+{% endblock %}

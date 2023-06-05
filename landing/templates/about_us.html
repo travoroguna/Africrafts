@@ -15,45 +15,49 @@
     <title>About Us</title>
   </head>
   <body>
-    <div class="info top">
-      <div class="about-group">
-        <h3>WHY AFRICRAFTS?</h3>
-        <h1 class="about-title">ABOUT US</h1>
-        <p>
-          Welcome to Africrafts, an online platform that connects African artisans
-          with buyers from around the world. We believe that African artisans create
-          some of the most beautiful and unique crafts in the world, and we are
-          dedicated to helping them share their talents with a wider audience. By
-          providing a marketplace for these artisans to sell their products, we hope
-          to empower them economically and culturally, while also introducing the
-          world to the rich and diverse cultural heritage of Africa.
-        </p>
+    {% include 'includes/navinfo.html' %}
+    <section class="why_africrafts">
+      <div class="info top">
+        <div class="about-group">
+          <h3>WHY AFRICRAFTS?</h3>
+          <h1 class="about-title">ABOUT US</h1>
+          <p>
+            Welcome to Africrafts, an online platform that connects African artisans
+            with buyers from around the world. We believe that African artisans create
+            some of the most beautiful and unique crafts in the world, and we are
+            dedicated to helping them share their talents with a wider audience. By
+            providing a marketplace for these artisans to sell their products, we hope
+            to empower them economically and culturally, while also introducing the
+            world to the rich and diverse cultural heritage of Africa.
+          </p>
+        </div>
+  
+        <img src="{% static 'img/potter.jpg' %}" />
+  
       </div>
-
-      <img src="{% static 'img/potter.jpg' %}" />
-
-    </div>
-
-    <div class="info bottom">
-      <img src="{% static 'img/baskets.jpg' %}" />
-
-      <div class="about-group">
-        <h1 class="about-title commitment">OUR COMMITMENT</h1>
-        <p class="commitment">
-          At Africrafts, we are committed to promoting fair trade practices and
-          ensuring that our artisans receive a fair price for their products. By
-          supporting our platform, you are not only purchasing beautiful and
-          authentic African crafts, but also supporting sustainable economic
-          development in Africa. We work closely with our artisans to ensure that
-          their crafts meet our high standards of quality, and we are constantly
-          seeking out new and innovative ways to promote their work. Whether you are
-          looking for handcrafted jewelry, textiles, pottery, or other unique items,
-          you will find something to love on Africrafts.
-        </p>
+  
+      <div class="info bottom">
+        <img src="{% static 'img/baskets.jpg' %}" />
+  
+        <div class="about-group">
+          <h1 class="about-title commitment">OUR COMMITMENT</h1>
+          <p class="commitment">
+            At Africrafts, we are committed to promoting fair trade practices and
+            ensuring that our artisans receive a fair price for their products. By
+            supporting our platform, you are not only purchasing beautiful and
+            authentic African crafts, but also supporting sustainable economic
+            development in Africa. We work closely with our artisans to ensure that
+            their crafts meet our high standards of quality, and we are constantly
+            seeking out new and innovative ways to promote their work. Whether you are
+            looking for handcrafted jewelry, textiles, pottery, or other unique items,
+            you will find something to love on Africrafts.
+          </p>
+        </div>
+  
       </div>
-
-    </div>
-
+  
+    </section>
+    
   </body>
 </html>
 {% endblock %}
