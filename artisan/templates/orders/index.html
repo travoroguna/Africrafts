@@ -35,10 +35,6 @@
                         <td><sup><small>USD</small></sup>{{ order.product.price }}</td>
                         <td><sup><small>USD</small></sup>{{ order.total }}</td>
                     </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5">No products found.</td>
-                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
