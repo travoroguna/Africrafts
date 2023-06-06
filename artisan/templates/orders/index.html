@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col">
+            <h1 class="h1 jua">Products</h1>
+        </div>
+        <div class="col">
+            <a href="{% url 'create-product' %}" class="btn text-white float-end" style="background-color: #440310"><i
+                    class="bi bi-plus-circle-fill me-2"></i>Add New Product
+            </a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped data-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr class="fw-bolder">
+                        <td><img width="120px" height="100px" src="{{ order.product.image.url }}" class="rounded"
+                                 alt="{{ order.product.name }}"></td>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.product.description }}</td>
+                        <td><sup><small>USD</small></sup>{{ order.product.price }}</td>
+        
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No products found.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}

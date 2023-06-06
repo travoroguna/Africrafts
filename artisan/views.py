@@ -6,6 +6,8 @@ from artisan.models import Product, Artisan
 from customer.models import User, user_type
 from .forms import LoginForm, ProductForm
 from django.http import JsonResponse
+from django.db.models import Q
+from shop.models import OrderProduct
 
 
 # Create your views here.
@@ -29,6 +31,8 @@ def products(request):
         'segment': 'products',
         'products': Product.objects.filter(user=Artisan.objects.get(user=request.user)).all()
     }
+
+    print(context['products'])
     return render(request, 'products/index.html', context)
 
 
@@ -112,3 +116,20 @@ def login(request):
             return redirect('shop')
 
     return render(request, 'login_tmp.html', {'form': form, 'error': 'Invalid credentials'})
+
+
+@login_required()
+def orders(request):
+    if not request.user.is_artisan:
+        return redirect('login')
+    
+    artisan = Artisan.objects.get(user=request.user)
+
+    context = {
+        'segment': 'orders',
+        'orders': OrderProduct.objects.filter(Q(product__user=artisan, ordered=True))
+    }
+
+
+    return render(request, 'orders/index.html', context)
+

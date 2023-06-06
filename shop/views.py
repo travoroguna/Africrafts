@@ -17,6 +17,7 @@ def shop(request):
     print("Welcome to the shop", context)
     return render(request, 'shop_index.html', context)
 
+
 def product(request, category_slug , product_id):
     recent_products = Product.objects.all().order_by('-date')[:4]
     product = Product.objects.get(id=product_id)
@@ -27,6 +28,8 @@ def product(request, category_slug , product_id):
         'recent_products': recent_products
     }
     return render(request, 'shop_index.html', context)
+
+
 class StoreCart(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
@@ -37,6 +40,8 @@ class StoreCart(LoginRequiredMixin, View):
             return render(self.request, 'store_cart.html', context)
         except ObjectDoesNotExist:
             return redirect("store")
+        
+
 
 
 # TODO: redirect to cart page or update cart counter
@@ -124,7 +129,6 @@ def checkout(request):
         state = request.POST.get('state')
         zip_code = request.POST.get('zip_code')
 
-        print(address, city, state, zip_code)
 
         checkout_address = ShippingAddress(
             address=address,
@@ -137,6 +141,11 @@ def checkout(request):
         order = Order.objects.get(customer=request.user, ordered=False)
         order.shipping_address = checkout_address
         order.ordered = True
+
+        for order_product in order.products.all():
+            order_product.ordered = True
+            order_product.save()
+
         order.save()
         context = {
             'order': order
@@ -155,3 +164,5 @@ def checkout(request):
         except ObjectDoesNotExist:
             # messages.error(request, "You do not have an active order")
             return redirect("shop")
+        
+

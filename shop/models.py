@@ -1,9 +1,10 @@
 from django.db import models
-from  customer.models import User
+from customer.models import User
+from artisan.models import Artisan
 # from accounts.models import Customer
 from artisan.models import Product
 from django.urls import reverse
-from django.utils.text import slugify 
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -37,7 +38,8 @@ class ShippingAddress(models.Model):
     city = models.CharField(max_length=200, null=False, blank=True)
     state = models.CharField(max_length=200, null=False, blank=True)
     zip_code = models.CharField(max_length=200, null=False, blank=True)
-    
+
+
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(OrderProduct)
