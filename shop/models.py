@@ -20,6 +20,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class OrderProduct(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
@@ -62,4 +63,3 @@ class Order(models.Model):
         for order_product in self.products.all():
             total += order_product.quantity
         return total
-

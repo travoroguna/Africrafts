@@ -122,14 +122,15 @@ def login(request):
 def orders(request):
     if not request.user.is_artisan:
         return redirect('login')
-    
+
     artisan = Artisan.objects.get(user=request.user)
+    placed_orders = OrderProduct.objects.filter(Q(product__user=artisan, ordered=True))
+    for order in placed_orders:
+        order.total = order.product.price * order.quantity
 
     context = {
         'segment': 'orders',
-        'orders': OrderProduct.objects.filter(Q(product__user=artisan, ordered=True))
+        'orders': placed_orders
     }
 
-
     return render(request, 'orders/index.html', context)
-

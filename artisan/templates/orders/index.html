@@ -5,12 +5,7 @@
 
     <div class="row mt-4">
         <div class="col">
-            <h1 class="h1 jua">Products</h1>
-        </div>
-        <div class="col">
-            <a href="{% url 'create-product' %}" class="btn text-white float-end" style="background-color: #440310"><i
-                    class="bi bi-plus-circle-fill me-2"></i>Add New Product
-            </a>
+            <h1 class="h1 jua">Orders</h1>
         </div>
     </div>
     <hr>
@@ -20,10 +15,12 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
+                    <th>Customer</th>
+                    <th>Product Name</th>
                     <th>Description</th>
+                    <th>Quantity</th>
                     <th>Price</th>
-                    <th></th>
+                    <th>Total</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,10 +28,12 @@
                     <tr class="fw-bolder">
                         <td><img width="120px" height="100px" src="{{ order.product.image.url }}" class="rounded"
                                  alt="{{ order.product.name }}"></td>
+                        <td>{{ order.customer }}</td>
                         <td>{{ order.product.name }}</td>
                         <td>{{ order.product.description }}</td>
+                        <td>{{ order.quantity }}</td>
                         <td><sup><small>USD</small></sup>{{ order.product.price }}</td>
-        
+                        <td><sup><small>USD</small></sup>{{ order.total }}</td>
                     </tr>
                     {% empty %}
                     <tr>
