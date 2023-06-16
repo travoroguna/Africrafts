@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col">
+            <h1 class="h1 jua">Orders</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped data-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Customer</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr class="fw-bolder">
+                        <td><img width="120px" height="100px" src="{{ order.product.image.url }}" class="rounded"
+                                 alt="{{ order.product.name }}"></td>
+                        <td>{{ order.customer }}</td>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.product.description }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td><sup><small>USD</small></sup>{{ order.product.price }}</td>
+                        <td><sup><small>USD</small></sup>{{ order.total }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}

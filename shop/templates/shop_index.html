@@ -1,0 +1,51 @@
+{% load static %}
+{% block content %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    {% load static %}
+
+    <head>
+        {% include 'includes/simple-head.html' %}
+        <style>
+            body {
+                background-color: #FAEFE6;
+            }
+        </style>
+    </head>
+
+{% include 'includes/navinfo.html' %}
+
+
+
+    <main class="content">
+        <div class="container-fluid">
+            <div class="mx-4">
+                <div class="row" style="padding-top: 100px">
+                    {% for product in products %}
+                        <div class="col">
+                            <div class="item">
+                                <img width="250px" height="210px" src="{{ product.image.url }}" class="mb-2 rounded"
+                                     alt="{{ product.name }}">
+                                <h6 class="h6 text-success">{{ product.name }}</h6>
+                                <p class="p">{{ product.description }}</p>
+                                <h5 style="color: #AD0214"><sup><small>USD</small></sup>{{ product.price }}</h5>
+                                <div>
+                                    {% comment %} <i class="bi bi-dash-square-fill"></i>
+                                        <input style="width: 50px" class="" type="number" min="1" value="1">
+                                        <i class="bi bi-plus-square-fill"></i> {% endcomment %}
+                                    <a class="btn btn-sm btn-outline-dark" href="{{ product.get_add_to_cart_url }}"
+                                       role="button">ADD TO CART</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'includes/scripts.html' %}
+    <body>
+
+{% endblock %}

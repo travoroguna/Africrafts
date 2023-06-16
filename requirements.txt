@@ -1,0 +1,8 @@
+asgiref==3.6.0
+dj-config-url==0.1.1
+Django==4.2
+django-widget-tweaks==1.4.12
+Pillow==9.5.0
+sqlparse==0.4.4
+tzdata==2023.3
+whitenoise==6.4.0

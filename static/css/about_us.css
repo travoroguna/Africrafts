@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+
+body{
+    background-color:#FAEFE6;
+    width: 100%;
+}
+
+h3{
+    color:#AD0214;
+    font-family: 'Londrina Solid';
+    font-style: normal;
+    font-weight: 100;
+    font-weight: bolder;
+    font-size: 20px;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+
+p{
+    font-family: 'Reem Kufi Ink';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 36px;
+
+    color: #000000;
+}
+
+.commitment{
+    font-family: 'Reem Kufi Ink';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 36px;
+    text-align: right;
+    color: #000000;
+}
+
+
+
+
+.aboutus{
+    /* Heading */
+
+    font-family: 'Londrina Solid';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    /* identical to box height */
+
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    /* #000000 */
+
+    color: #000000;
+}
+
+.header2{
+    /* Heading */
+
+    font-family: 'Londrina Solid';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    /* identical to box height */
+
+    text-transform: uppercase;
+
+    /* #000000 */
+
+    color: #000000;
+
+    white-space: nowrap;
+}
+
+.info{
+    display: flex;
+}
+
+.about-group{
+    flex: 1;
+}
+
+.info img{
+    width: 50%;
+    flex: 1;
+}
+
+.about-group{
+    padding: 56px 36px;
+}
+
+.about-title{
+    font-weight: bolder;
+    font-size: 36px;
+    margin-bottom: 16px;
+}
+
+.commitment{
+    text-align: right;
+}
+
+.top{
+    margin-top: 100px;
+}
+
+.why_africrafts{
+    margin-top: 50px;
+}
